@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1589876322200.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2354E51",
+    "lastKnownWriteTime" : 18296075356864623,
+    "last_content_update" : 1589876322200,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "18CA4C19",
+        "caption" : "amyloid",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=amyloid&cache_key=18CA4C19",
+        "displayedObservations" : "939",
+        "environment" : "",
+        "object" : "amyloid",
+        "preview" : "0",
+        "totalObservations" : "939",
+        "variables" : "20"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

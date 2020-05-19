@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1589876096185.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "3401712604",
+    "id" : "D45C501B",
+    "lastKnownWriteTime" : 1589881611,
+    "last_content_update" : 1589881611635,
+    "path" : "C:/Users/Taneisha/UCI ML Hackathon/Analysis/Preprocessing.R",
+    "project_path" : "Preprocessing.R",
+    "properties" : {
+        "cursorPosition" : "12,3",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
