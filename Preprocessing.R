@@ -30,6 +30,15 @@ amyloid <- amyloid %>%
                    distsum = if_else(distsum < 0, NA_real_, distsum),
                    drec_hits = if_else(drec_hits < 0, NA_real_, drec_hits),
                    drec_fa = if_else(drec_fa < 0, NA_real_, drec_fa),
+                   t1t2 = t2sum - t1sum,
+                   t2t3 = t3sum - t2sum,
+                   t3t4 = t4sum - t3sum,
+                   t4t5 = t5sum - t4sum,
+                   t5t6 = t6sum - t5sum,
+                   t6t7 = t7sum - t6sum,
+                   t1t5 = t5sum - t1sum,
+                   t5t7 = t7sum - t5sum,
+                   recall_prop = drec_hits/drec_fa
                   )
 
 # Colnames
