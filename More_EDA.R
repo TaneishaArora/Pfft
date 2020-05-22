@@ -36,6 +36,9 @@ avg_scores <- avg_scores %>% mutate(
   word_list = if_else(row_number() < 8, 1, 2),
 )
 
+# convert to numeric
+avg_scores$test_iteration <- as.numeric(as.character(avg_scores$test_iteration)) 
+
 # plot
 ggplot(data=avg_scores, 
        aes(x=test_iteration, 
@@ -44,7 +47,7 @@ ggplot(data=avg_scores,
            color=as.factor(word_list))) +
   geom_line() + geom_point() +
   ggtitle("Average Test Scores vs AVLT Iteration") +
-  labs(y="Score", col="Word List")
+  labs(y="Score", col="Word List", x="AVLT")
   
 
 ## ===============================================================
