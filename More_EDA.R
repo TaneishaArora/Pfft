@@ -1,4 +1,6 @@
 library(ggplot2)
+library(magrittr)
+library(dplyr)  
 
 colnames(amyloid)
 
@@ -135,3 +137,50 @@ ggplot(proportion_correct, aes(fill=drec, y=Score, x=amyloid_positivity)) +
   ggtitle("Word Recognition Hits/False Alarms") +
   labs(x="Amyloid Positivity", y="Relative Score",
        col="Recognized Words")
+  
+  
+## ===============================================================
+## DELTA AVLT SCORE VS AMYLOID POSITIVITY ========================
+## ===============================================================
+
+# Dividing the data up by visit month
+zero <- amyloid %>% filter(month == 0)
+six <- amyloid %>% filter(month == 6)
+twelve <- amyloid %>% filter(month == 12)
+eighteen <- amyloid %>% filter(month == 18)
+twenty_four <- amyloid %>% filter(month == 24)
+thirty_six <- amyloid %>% filter(month == 36)
+
+# Baseline statistics (all participants are only represented at month 0)
+table(amyloid$month)
+
+zero %>% gather("test_number", "score", c(t1t2, t2t3, t3t4, t4t5, t5t6, t6t7)) %>%
+  ggplot(aes(x = test_number, fill = abeta6mcut)) +
+  scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
+  geom_boxplot(aes(x= test_number, y = score)) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
+  labs(x = "AVLT", y = "Score") + 
+  ggtitle("Delta AVLT Scores for Month X")
+
+
+## ===============================================================
+## AVLT SCORES VS AMYLOID POSITIVITY ==============================
+## ===============================================================
+
+zero %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
+  ggplot(aes(x = test_number, fill = abeta6mcut)) +
+  scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
+  geom_boxplot(aes(x= test_number, y = score)) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
+  labs(x = "AVLT", y = "Score") + 
+  ggtitle("Delta AVLT Scores for Month X")
+
+
+
+
+
+
+
+
+
+
