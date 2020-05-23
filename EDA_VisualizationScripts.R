@@ -1,3 +1,4 @@
+library(tidyverse)
 library(ggplot2)
 
 colnames(amyloid)
@@ -20,6 +21,17 @@ zero %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6s
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Sex", labels = c("Female", "Male")) +
+  labs(x = "AVLT", y = "Score")
+
+## JUST THE MEDIANS
+zero %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
+  group_by(test_number, sex) %>%
+  summarise(score = median(score)) %>%
+  ggplot(aes(x = test_number, color = sex, group = sex)) +
+  scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
+  geom_line(aes(x= test_number, y = score), size = 1) +
+  geom_point(aes(x= test_number, y = score)) +
+  scale_color_discrete(name = "Sex", labels = c("Female", "Male")) +
   labs(x = "AVLT", y = "Score")
 
 # Amyloid Positivity
@@ -117,3 +129,18 @@ amyloid %>%
   geom_boxplot(aes(x= month, y = abeta6m)) +
   scale_fill_discrete(name = "Age", labels = c("[54-72)", "[72-77)", "[77, 89]")) +
   labs(x = "AVLT", y = "Amyloid Beta Levels")
+
+
+####################################################################################################
+
+x <- amyloid_wide_month %>%
+  group_by(rid) %>%
+  filter(month0 + month6 + month12)
+
+amyloid %>%
+  filter(rid %in% rid_0to12$rid) %>%
+  ggplot(aes(x = month, fill = abeta6mcut)) +
+  geom_boxplot(aes(x= month, y = t1t5)) +
+  labs(x = "Month", y = "T5sum - T1sum")
+
+

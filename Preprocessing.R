@@ -12,7 +12,7 @@ View(amyloid)
 # Preprocessing
 amyloid <- amyloid %>%
             mutate(
-                   month = if_else(month < 0, NA_real_, month),
+                   month = as.factor(if_else(month < 0, NA_real_, month)),
                    abeta6m = if_else(abeta6m < 0, NA_real_, abeta6m),
                    abeta6mcut = factor(abeta6mcut),
                    sex = factor(sex),
