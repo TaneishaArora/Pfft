@@ -19,7 +19,7 @@ amyloid_demographic_baseline_summary <- amyloid %>%
 amyloid_biomarker_baseline_summary <- amyloid %>%
   filter(month == 0) %>%
   summarise(
-    mean_abeta6_measure = mean(abeta6m, na.rm),
+    mean_abeta6_measure = mean(abeta6m, na.rm = TRUE),
     prop_positive = sum(abeta6mcut == 1)/n(),
     prop_negative = sum(abeta6mcut == 2)/n(),
     prop_e2e2 = sum(genotype == 1)/n(),
