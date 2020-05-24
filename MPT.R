@@ -1,16 +1,12 @@
-# Uncomment to install packages necessary for multinomial
-# computation trees
-
-# install.packages("psychotree")
-
 # Load installed package
 library(psychotree)
+library(tidyverse)
+library(ggplot2)
 
-
-amyloid_mpt_data <- amyloid %>% 
-  filter(month == 0) %>%
+# Baseline participants who have taken the Recognition Test
+amyloid_mpt_data <- baseline %>% 
   filter(!is.na(drec_hits) | !is.na(drec_fa)) %>%
-  select(sex, age, t1t5, t5t6, t5t7, dx, genotype)
+  select(sex, age, t1t5, t5t6, t5t7, dx, genotype, drec_fa, drec_hits)
 
 # Creating count matrix of true positives, false positives, true negatives, and false negatives
 # on the recognition-memory experiments
@@ -58,7 +54,5 @@ amyloid_tree_genotype <- mpttree(y ~ genotype, data = amyloid_mpt_data, spec = m
 plot(amyloid_tree_genotype, index = c("r", "b"))
 
 # full model
-amyloid_tree_all <- mpttree(y ~ ., data = amyloid_mpt_data, spec = mptspec("1HT"))
+amyloid_tree_all <- mpttree(y ~ sex, age, t1t5, t5t6, t5t7, dx, genotype, data = amyloid_mpt_data, spec = mptspec("1HT"))
 plot(amyloid_tree_all, index = c("r", "b"))
-
-
