@@ -1,6 +1,5 @@
 library(ggplot2)
-library(magrittr)
-library(dplyr)  
+library(tidyverse) 
 
 colnames(amyloid)
 
@@ -169,7 +168,7 @@ zero %>% gather("test_number", "score", c(t1t2, t2t3, t3t4, t4t5, t5t6, t6t7)) %
 
 zero %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
   ggplot(aes(x = test_number, fill = abeta6mcut)) +
-  scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
+  scale_x_discrete(labels = c("IR1", "IR2", "IR3", "IR4", "IR5", "DR1", "DR2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
   labs(x = "AVLT", y = "Score") + 
