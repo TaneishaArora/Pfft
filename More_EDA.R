@@ -124,7 +124,7 @@ proportion_correct <- data.frame(Score = c(proportion_correct[,"V1"],
 # populate drec and amyloid positivity accordingly
 proportion_correct <- proportion_correct %>% mutate(
   drec = if_else(row_number() %% 2 == 0, "False Alarm", "Hit"),
-  amyloid_positivity = if_else(row_number() < 3, "Negative", "Positive"),
+  amyloid_positivity = if_else(row_number() < 3, "Positive", "Negative"),
 )
 
 # convert scores from char to numeric
@@ -158,7 +158,7 @@ zero %>% gather("test_number", "score", c(t1t2, t2t3, t3t4, t4t5, t5t6, t6t7)) %
   ggplot(aes(x = test_number, fill = abeta6mcut)) +
   scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
-  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
   labs(x = "AVLT", y = "Score") + 
   ggtitle("Delta AVLT Scores for Month X")
 
@@ -171,7 +171,7 @@ zero %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6s
   ggplot(aes(x = test_number, fill = abeta6mcut)) +
   scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
-  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
   labs(x = "AVLT", y = "Score") + 
   ggtitle("Delta AVLT Scores for Month X")
 
