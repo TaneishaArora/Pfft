@@ -6,20 +6,22 @@ amyloid <- read_csv('./Data/Amyloid.csv')
 participant_counts <- table(amyloid$month) 
 
 # Summary Statistics for Demographics for Month 0
-amyloid_baseline_summary <- amyloid %>%
+amyloid_demographic_baseline_summary <- amyloid %>%
   filter(month == 0) %>%
   summarise(
     mean_age  = mean(age), 
     mean_edu = mean(edu), 
-    drec_hits = mean(drec_hits, na.rm = TRUE),
-    drec_fa = mean(drec_fa, na.rm = TRUE),
     prop_male = sum(sex == 2)/n(),
     prop_female = sum(sex == 1)/n(),
+  )
+
+# Summary Statisitics for Biomarkers
+amyloid_biomarker_baseline_summary <- amyloid %>%
+  filter(month == 0) %>%
+  summarise(
+    mean_abeta6_measure = mean(abeta6m, na.rm),
     prop_positive = sum(abeta6mcut == 1)/n(),
     prop_negative = sum(abeta6mcut == 2)/n(),
-    prop_normal_cognition = sum(dx == 1)/n(),
-    prop_subjectively_impaired = sum(dx == 2)/n(),
-    prop_objectively_impaired = sum(dx == 3)/n(),
     prop_e2e2 = sum(genotype == 1)/n(),
     prop_e2e3 = sum(genotype == 2)/n(),
     prop_e3e3 = sum(genotype == 3)/n(),
@@ -28,9 +30,18 @@ amyloid_baseline_summary <- amyloid %>%
     prop_e4e4 = sum(genotype == 6)/n()
   )
 
+# Summary Statistics for Diagnoses
+amyloid_diagnosis_baseline_summary <- amyloid %>%
+  filter(month == 0) %>%
+  summarise(
+    prop_normal_cognition = sum(dx == 1)/n(),
+    prop_subjectively_impaired = sum(dx == 2)/n(),
+    prop_objectively_impaired = sum(dx == 3)/n(),
+  )
+
 # Summary Statistics for AVLT Test Scores for Month 0, 
 # split by Amyloid Positivity
-amyloid_avlt_baseline_summary <- amyloid %>%
+amyloid_test_performance_baseline_summary <- amyloid %>%
   filter(month == 0)  %>%
   group_by(abeta6mcut) %>% 
   summarise(
@@ -41,6 +52,8 @@ amyloid_avlt_baseline_summary <- amyloid %>%
     mean_t5sum = mean(t5sum, na.rm = TRUE),
     mean_t6sum = mean(t6sum, na.rm = TRUE),
     mean_t7sum = mean(t7sum, na.rm = TRUE),
+    drec_hits = mean(drec_hits, na.rm = TRUE),
+    drec_fa = mean(drec_fa, na.rm = TRUE),
   )
 
 # Preprocessing

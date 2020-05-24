@@ -11,7 +11,8 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Sex", labels = c("Female", "Male")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") + 
+  ggtitle("AVLT Scores by Sex")
 
 # Amyloid Positivity
 baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
@@ -19,7 +20,8 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") +
+  ggtitle("AVLT Scores by Amyloid Positivity")
 
 # Genotype
 baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
@@ -27,7 +29,8 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Genotype", labels = c("e2/e2", "e2/e3", "e3/e3", "e2/e4", "e3/e4", "e4/e4")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") +
+  ggtitle("AVLT Scores by Genotype")
 
 # Diagnosis
 baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%
@@ -35,7 +38,8 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Diagnosis", labels = c("Cognitively Normal", "Subjectively Cognitively Impaired", "Objective Mild Cognitive Impairment")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") +
+  ggtitle("AVLT Scores by Diagnosis")
 
 # Education
 ntile(baseline$edu, 3)
@@ -50,10 +54,10 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Education Bracket", labels = c("<= Bachelors", "<= Masters", "<= PhD")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") + 
+  ggtitle("AVLT Scores by Education Group")
 
 # Age
-ntile(baseline$age, 3)
 # To check ranges
 baseline %>% mutate (age_cat  = ntile(age, 3)) %>% filter(age_cat == 1) %>% summarise(min(age), max(age))
 baseline %>% mutate (age_cat  = ntile(age, 3)) %>% filter(age_cat == 2) %>% summarise(min(age), max(age))
@@ -65,32 +69,36 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
   scale_fill_discrete(name = "Age Range", labels = c("[54-72)", "[72-77)", "[77, 89]")) +
-  labs(x = "AVLT", y = "Score")
+  labs(x = "AVLT", y = "Score") +
+  ggtitle("AVLT Scores by Age Group")
 
 
 ##################################################################################################
 
 # Amyloid Beta Measures at baseline based on various demographic traits
-# sex
+# Sex
 amyloid %>%
   ggplot(aes(x = month, fill = sex)) +
   geom_boxplot(aes(x= month, y = abeta6m)) +
   scale_fill_discrete(name = "Sex", labels = c("Female", "Male")) +
-  labs(x = "Month", y = "Amyloid Beta Levels")
+  labs(x = "Month", y = "Amyloid Beta Levels") + 
+  ggtitle("Amyloid Beta Measures vs Time, by Sex")
 
 # Genotype
 amyloid %>% 
   ggplot(aes(x = month, fill = genotype)) +
   geom_boxplot(aes(x= month, y = abeta6m)) +
   scale_fill_discrete(name = "Genotype", labels = c("e2/e2", "e2/e3", "e3/e3", "e2/e4", "e3/e4", "e4/e4")) +
-  labs(x = "Month", y = "Amyloid Beta Levels")
+  labs(x = "Month", y = "Amyloid Beta Levels") + 
+  ggtitle("Amyloid Beta Measures vs Time, by Genotype")
 
 # Diagnosis
 amyloid %>%
   ggplot(aes(x = month, fill = dx)) +
   geom_boxplot(aes(x= month, y = abeta6m)) +
   scale_fill_discrete(name = "Diagnosis", labels = c("Cognitively Normal", "Subjectively Cognitively Impaired", "Objective Mild Cognitive Impairment")) +
-  labs(x = "Month", y = "Amyloid Beta Levels")
+  labs(x = "Month", y = "Amyloid Beta Levels") +
+  ggtitle("Amyloid Beta Measures vs Time, by Diagnosis")
 
 # Education
 amyloid %>%
@@ -98,7 +106,8 @@ amyloid %>%
   ggplot(aes(x = month, fill = edu_factor)) +
   geom_boxplot(aes(x = month, y = abeta6m)) +
   scale_fill_discrete(name = "Diagnosis", labels = c("<= Bachelors", "<= Masters", "<= PhD")) +
-  labs(x = "Month", y = "Amyloid Beta Levels")
+  labs(x = "Month", y = "Amyloid Beta Levels") +
+  ggtitle("Amyloid Beta Measures vs Time, by Education")
 
 # Age
 amyloid %>%
@@ -106,7 +115,8 @@ amyloid %>%
   ggplot(aes(x = month, fill = age_factor)) +
   geom_boxplot(aes(x= month, y = abeta6m)) +
   scale_fill_discrete(name = "Age", labels = c("[54-72)", "[72-77)", "[77, 89]")) +
-  labs(x = "Month", y = "Amyloid Beta Levels")
+  labs(x = "Month", y = "Amyloid Beta Levels") +
+  ggtitle("Amyloid Beta Measures vs Time, by Age Group")
 
 
 ##################################################################################################
