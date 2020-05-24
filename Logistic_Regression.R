@@ -89,7 +89,7 @@ abeta_pos <- logit_amyloid %>% filter(abeta6mcut == 1)
 
 # Create Test-Train Split
 abeta_neg_training_rows <- sample(1:nrow(abeta_neg), 0.7*nrow(abeta_neg))  # neg for train pos
-abeta_pos_training_rows <- sample(1:nrow(abeta_pos), 0.7*nrow(abeta_neg))  # pos for training. Pick as many pos as nnegabeta_neg
+abeta_pos_training_rows <- sample(1:nrow(abeta_pos), 0.7*nrow(abeta_neg))  # pos for training. Pick as many pos as neg
 training_pos <- abeta_pos[abeta_pos_training_rows, ]  
 training_neg <- abeta_neg[abeta_neg_training_rows, ]
 trainingData <- rbind(training_neg, training_pos)  # row bind the negitives and positives 
