@@ -19,7 +19,7 @@ baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum,
   ggplot(aes(x = test_number, fill = abeta6mcut)) +
   scale_x_discrete(labels = c("IR 1", "IR 2", "IR 3", "IR 4", "IR 5", "DR 1", "DR 2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
-  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
   labs(x = "AVLT", y = "Score") +
   ggtitle("AVLT Scores by Amyloid Positivity")
 
@@ -144,7 +144,7 @@ recognition_prop <- data.frame(Score = c(recognition_prop[,"V1"],
 # populate drec and amyloid positivity accordingly
 recognition_prop <- recognition_prop %>% mutate(
   drec = if_else(row_number() %% 2 == 0, "False Alarm", "Hit"),
-  amyloid_positivity = if_else(row_number() < 3, "Positive", "Negative"),
+  amyloid_positivity = if_else(row_number() < 3, "Negative", "Positive"),
 )
 
 # convert scores from char to numeric
@@ -165,7 +165,7 @@ baseline %>% gather("test_number", "score", c(t1t2, t2t3, t3t4, t4t5, t5t6, t6t7
   ggplot(aes(x = test_number, fill = abeta6mcut)) +
   scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
   geom_boxplot(aes(x= test_number, y = score)) +
-  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Positive", "Negative")) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
   labs(x = "AVLT", y = "Score") + 
   ggtitle("Delta AVLT Scores at Baseline")
 

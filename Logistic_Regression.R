@@ -84,18 +84,18 @@ generate_corr_map(baseline_corr)
 logit_amyloid <- baseline %>% 
   mutate(abeta6mcut = as.factor(if_else(abeta6mcut == 1, 0, 1)))
 
-abeta_pos <- logit_amyloid %>% filter(abeta6mcut == 0)
-abeta_neg <- logit_amyloid %>% filter(abeta6mcut == 1)
+abeta_neg <- logit_amyloid %>% filter(abeta6mcut == 0)
+abeta_pos <- logit_amyloid %>% filter(abeta6mcut == 1)
 
 # Create Test-Train Split
-abeta_pos_training_rows <- sample(1:nrow(abeta_pos), 0.7*nrow(abeta_pos))  # neg for train pos
-abeta_neg_training_rows <- sample(1:nrow(abeta_neg), 0.7*nrow(abeta_pos))  # pos for training. Pick as many pos as nnegabeta_neg
-training_neg <- abeta_neg[abeta_neg_training_rows, ]  
-training_pos <- abeta_pos[abeta_pos_training_rows, ]
+abeta_neg_training_rows <- sample(1:nrow(abeta_neg), 0.7*nrow(abeta_neg))  # neg for train pos
+abeta_pos_training_rows <- sample(1:nrow(abeta_pos), 0.7*nrow(abeta_neg))  # pos for training. Pick as many pos as nnegabeta_neg
+training_pos <- abeta_pos[abeta_pos_training_rows, ]  
+training_neg <- abeta_neg[abeta_neg_training_rows, ]
 trainingData <- rbind(training_neg, training_pos)  # row bind the negitives and positives 
 
-test_neg <- abeta_neg[-abeta_neg_training_rows, ]
 test_pos <- abeta_pos[-abeta_pos_training_rows, ]
+test_neg <- abeta_neg[-abeta_neg_training_rows, ]
 testData <- rbind(test_neg, test_pos)  # row bind the neg and pos
 
 # Sanity Check

@@ -5,7 +5,7 @@ This project was created over the span of a week long ML hackathon held virtuall
 
 Our main research question we focused our efforts on addressing was predicting which people tested Amyloid Positive based on other features in the dataset.
 
-For context, Amyloid Beta, the cerebrospinal fluid measurement taken at the time of assessment (or within 6 months of assessment) are believed to be one of the first indicators of otherwise pre-symptomatic Alzheimer's disease. Amyloid Positivity diagnosis is then determined according to the evidence-based cutoff of 192 pg/mL. Amyloid Beta levels below 192 pg/mL is considered Amyloid Negative, while above 192 pg/mL is considered Amyloid Positive.
+For context, Amyloid Beta, the cerebrospinal fluid measurement taken at the time of assessment (or within 6 months of assessment) are believed to be one of the first indicators of otherwise pre-symptomatic Alzheimer's disease. Amyloid Positivity diagnosis is then determined according to the evidence-based cutoff of 192 pg/mL. Amyloid Beta levels below 192 pg/mL is considered Amyloid Positive, while above 192 pg/mL is considered Amyloid Negative.
 
 Some other topics of analysis we explored inlcluded predicting future test scores with past test scores, investigating the existance of different clusters or subgroups within the data, and thoroughly understanding the relationship between combinations of different features.
 
@@ -101,8 +101,8 @@ amyloid_biomarker_baseline_summary <- amyloid %>%
   filter(month == 0) %>%
   summarise(
     mean_abeta6_measure = mean(abeta6m, na.rm),
-    prop_positive = sum(abeta6mcut == 1)/n(),
-    prop_negative = sum(abeta6mcut == 2)/n(),
+    prop_negative = sum(abeta6mcut == 1)/n(),
+    prop_positive = sum(abeta6mcut == 2)/n(),
     prop_e2e2 = sum(genotype == 1)/n(),
     prop_e2e3 = sum(genotype == 2)/n(),
     prop_e3e3 = sum(genotype == 3)/n(),
@@ -170,6 +170,7 @@ amyloid <- amyloid %>%
 
   baseline <- amyloid %>% filter(month == 0)
 ```
+
 
 # Exploratory Data Analysis (EDA)
 
@@ -296,11 +297,7 @@ par(mfrow = c(1,1)
    
 #### Inference:
 * The learning effect accross the immediate recall discriminates between Amyloid Postive and Negative participants far better than the individual test measures 
-   
-# Feature Engineering
--> Test Differences/Learning Scores
-        t1t5 (based of of (1... the learning is what seemd to discriminate between +ve and -ve)
-        reference observation 1
+
 
 # Question 1: Cluster Participants based on Recognition Task Performance
     -> Identify the Contitive Process for the Recognition Task
