@@ -19,7 +19,7 @@ amyloid_demographic_baseline_summary <- amyloid %>%
 amyloid_biomarker_baseline_summary <- amyloid %>%
   filter(month == 0) %>%
   summarise(
-    mean_abeta6_measure = mean(abeta6m, na.rm),
+    mean_abeta6_measure = mean(abeta6m, na.rm = TRUE),
     prop_negative = sum(abeta6mcut == 1)/n(),
     prop_positive = sum(abeta6mcut == 2)/n(),
     prop_e2e2 = sum(genotype == 1)/n(),
@@ -87,4 +87,7 @@ amyloid <- amyloid %>%
     t5t7 = t7sum - t5sum,
     recognition_prop = drec_hits/drec_fa
   )
+
+# Dividing the data up by visit month
+baseline <- amyloid %>% filter(month == 0)
 

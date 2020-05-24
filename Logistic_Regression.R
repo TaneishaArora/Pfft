@@ -3,6 +3,7 @@ library(ggplot2)
 library(smbinning)
 library(tidyverse)
 library(InformationValue)
+library(reshape2)
 library(caret)
 
 set.seed(100)  # for repeatability of samples
@@ -107,12 +108,12 @@ table(testData$abeta6mcut) # the rest of the entries
 # Test
 logit_baseline <- glm(abeta6mcut ~ t1t5, data=trainingData, family=binomial(link="logit"))
 predicted_baseline <- plogis(predict(logit_baseline, testData))  # predicted scores
-optCutOff_baseline <- optimalCutoff(testData$abeta6mcut, predicted)[1]
+optCutOff_baseline <- optimalCutoff(testData$abeta6mcut, predicted_baseline)[1]
 
 # Learning, Genotype, Diagnosis
 logit_full <- glm(abeta6mcut ~ t1t5 + genotype + dx, data=trainingData, family=binomial(link="logit"))
 predicted_full <- plogis(predict(logit_full, testData))  # predicted scores
-optCutOff_full <- optimalCutoff(testData$abeta6mcut, predicted)[1]
+optCutOff_full <- optimalCutoff(testData$abeta6mcut, predicted_full)[1]
 
 # model diagnostics
 summary(logit_baseline)
@@ -123,7 +124,7 @@ misClassError(testData$abeta6mcut, predicted_baseline, threshold = optCutOff_bas
 misClassError(testData$abeta6mcut, predicted_full, threshold = optCutOff_full)
 
 # ROC: higher the better
-plotROC(testData$abeta6mcut, predicted_baseline)
+plotROC(testData$abeta6mcut, predicted_baseline, plottitle="something")
 plotROC(testData$abeta6mcut, predicted_full)
 
 # true positive rate

@@ -1,9 +1,6 @@
 library(tidyverse)
 library(ggplot2)
 
-# Dividing the data up by visit month
-baseline <- amyloid %>% filter(month == 0)
-
 # Test score Progression at baseline, by different demographic traits
 # Sex
 baseline %>% gather("test_number", "score", c(t1sum, t2sum, t3sum, t4sum, t5sum, t6sum, t7sum)) %>%

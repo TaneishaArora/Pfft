@@ -54,5 +54,5 @@ amyloid_tree_genotype <- mpttree(y ~ genotype, data = amyloid_mpt_data, spec = m
 plot(amyloid_tree_genotype, index = c("r", "b"))
 
 # full model
-amyloid_tree_all <- mpttree(y ~ sex, age, t1t5, t5t6, t5t7, dx, genotype, data = amyloid_mpt_data, spec = mptspec("1HT"))
+amyloid_tree_all <- mpttree(y ~ sex + age + t1t5 + t5t6 + t5t7 + dx + genotype, data = amyloid_mpt_data, spec = mptspec("1HT"))
 plot(amyloid_tree_all, index = c("r", "b"))
