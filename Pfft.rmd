@@ -321,6 +321,55 @@ par(mfrow = c(1,1))
 
 * The learning effect accross the immediate recall discriminates between Amyloid Postive and Negative participants far better than the individual test measures 
 
+```{r echo = FALSE, warning = FALSE, fig.hold = 'hold', out.width="50%"}
+baseline %>% gather("test_number", "score", c(t1t2, t2t3, t3t4, t4t5, t5t6, t6t7)) %>%
+  ggplot(aes(x = test_number, fill = abeta6mcut)) +
+  scale_x_discrete(labels = c("IR1-IR2", "IR2-IR3", "IR3-IR4", "IR4-IR5", "IR5-DR1", "DR1-DR2")) +
+  geom_boxplot(aes(x= test_number, y = score)) +
+  scale_fill_discrete(name = "Amyloid Positivity", labels = c("Negative", "Positive")) +
+  labs(x = "AVLT", y = "Score") + 
+  ggtitle("Delta AVLT Scores at Baseline")
+
+# Proportion Right/Wrong for Recogition Test
+
+# get average values of drec hits and fa
+recognition_prop <- baseline %>%
+  group_by(abeta6mcut) %>%
+  summarise(
+    drec_hits_mean = mean(drec_hits, na.rm = TRUE),
+    drec_fa_mean = mean(drec_fa, na.rm = TRUE)
+  )
+
+# transform data
+recognition_prop <- as.data.frame(t(recognition_prop))
+
+# remove the abeta6mcut row (first row)
+recognition_prop = recognition_prop[-1,]
+
+# combine both scores columns into one
+recognition_prop <- data.frame(Score = c(recognition_prop[,"V1"], 
+                                         recognition_prop[,"V2"]))
+
+# populate drec and amyloid positivity accordingly
+recognition_prop <- recognition_prop %>% mutate(
+  drec = if_else(row_number() %% 2 == 0, "False Alarm", "Hit"),
+  amyloid_positivity = if_else(row_number() < 3, "Negative", "Positive"),
+)
+
+# convert scores from char to numeric
+recognition_prop$Score <- as.numeric(as.character(recognition_prop$Score)) 
+sapply(recognition_prop, class)
+
+# plot
+ggplot(recognition_prop, aes(fill=drec, y=Score, x=amyloid_positivity)) +
+  geom_bar(position="fill", stat="identity") +
+  ggtitle("Word Recognition Hits/False Alarms") +
+  labs(x="Amyloid Positivity", y="Relative Score",
+       col="Recognized Words")
+```
+
+
+
 ## Question 1: 
 
 ### Cluster Participants based on Recognition Task Performance using  
@@ -336,12 +385,12 @@ them. The correctly recognized "old words" were counted as ```drec_hits```, whil
 
 <p> We modelled the cognitive process used by all the participants as a **One High Threshold** model as shown below:</p>
 
-![One High Threshold Spec](oneHT.png){#id .class width=35% height=35% align = 'center'}
+![One High Threshold Spec](oneHT.png)
 
 <p> Using ** _ recursive partitioning _ ** on Multinomial Processing Trees we modelled the parameters **r** and **b** as functions of various covariates in our data.</p>
 
-* $r = P(recognizing a previously presented word)$
-* $b = P(randomly guessing that a word was previously presented)$
+* $$r = P(recognizing a previously presented word)$$
+* $$b = P(randomly guessing that a word was previously presented)$$
 
 ```{r warning = FALSE, message = FALSE}
 # Baseline participants who have taken the Recognition Test
@@ -392,8 +441,8 @@ y <- as.matrix(
 #### Diagnosis
 ```{r warning = FALSE, message = FALSE}
   # dx
-  amyloid_tree_learning <- mpttree(y ~ t1t5, data = amyloid_mpt_data, spec = mptspec("1HT"))
-  plot(amyloid_tree_learning, index = c("r", "b"))
+  amyloid_tree_dx <- mpttree(y ~ dx, data = amyloid_mpt_data, spec = mptspec("1HT"))
+  plot(amyloid_tree_dx, index = c("r", "b"))
 ```
 
 #### Genotype
